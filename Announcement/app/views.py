@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .renderers import UserJSONRenderer
 from .serializers import RegistrationSerializer
+from django.http import HttpResponse
 
 
 class RegistrationAPIView(APIView):
@@ -11,6 +12,9 @@ class RegistrationAPIView(APIView):
     permission_classes = (AllowAny,)
     renderer_classes = (UserJSONRenderer,)
     serializer_class = RegistrationSerializer
+
+    def get(self, request):
+        return HttpResponse("<h2>Результат GET-запроса</h2>")
 
     def post(self, request):
         user = request.data.get('user', {})
